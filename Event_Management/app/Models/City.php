@@ -11,7 +11,7 @@ class City extends Model
         return $this->belongsTo(Country::class);
 
     }
-     public function event(){
+     public function events(){
         return $this->hasMany(Event::class);
      }
 }

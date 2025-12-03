@@ -11,17 +11,17 @@ class Event extends Model
         return $this->belongsTo(Country::class);
     }
     public function city(){
-        return $this->belongTo(City::class);
+        return $this->belongsTo(City::class);
 
     }
     public function organizer(){
         return $this->belongsTo(Organizer::class);
     }
 
-    public function ticket_inventory(){
-        return $this->hasmany(TicketInventory::class);
+    public function inventory(){
+        return $this->hasMany(TicketInventory::class);
     }
     public function ticket_purchase(){
-        return $this->hasmany(TicketPurchase::class);
+        return $this->hasMany(TicketPurchase::class);
     }
 }

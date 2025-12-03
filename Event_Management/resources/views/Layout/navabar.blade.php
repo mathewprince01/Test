@@ -1,29 +1,16 @@
-@extends('Layout.app')
-
-@section('main')
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-fluid">
-            <div class="row">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
-                        {{-- <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('') }}">Home</a> --}}
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-    </nav>
-@endsection
+<div class="col-md-1 bg-secondary p-2">
+    <ul class="list-unstyled ">
+        <li class="mb-4 text-light">
+            <h3>Event Manage System</h3>
+        </li>
+        <li class="mb-3">
+            <a href="{{route('event.index')}}" class="text-light ">Events</a>
+        </li>
+        <li class="mb-3">
+            <a href="{{route('purchaseCreate')}}" class="text-light">Ticket Purchase</a>
+        </li>
+        <li class="mt-3">
+            <a href="/logout" class="btn btn-danger">Logout</a>
+        </li>
+    </ul>
+</div>
