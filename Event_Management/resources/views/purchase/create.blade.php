@@ -10,9 +10,7 @@
             <div class="card-body">
                 <form action="{{route('purchaseStore')}}" method="post">
                     @csrf
-                    {{-- @php
-                        $event_types = ['Conference', 'Workshop', 'Concert', 'Webinar'];
-                    @endphp --}}
+
                     <div class="mb-3">
                         <label for="event_id" class="form-label">Event Name: </label>
                         <select name="event_id" id="event_id" class="form-select">

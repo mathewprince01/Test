@@ -1,4 +1,4 @@
-@extends('layout.home')
+@extends('layout.app')
 @section('title', 'Purchase List')
 @section('main')
     <div class="col-11">

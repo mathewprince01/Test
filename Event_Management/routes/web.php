@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\PurchaseController;
+use App\Mail\TicketPurchase;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'index']);
@@ -25,6 +27,10 @@ Route::middleware(['auth', 'role:Admin,Attendee'])->group(function(){
     Route::post('purchaseStore', [PurchaseController::class, 'store'])->name('purchaseStore');
     Route::get('getTicketType', [PurchaseController::class, 'getTicketType'])->name('getTicketType');
     Route::get('getQuantity', [PurchaseController::class, 'getQuantity'])->name('getQuantity');
+    Route::get('send-mail',function(){
+        $purchase = request()->query('purchase');
+        Mail::to('mathew@elroi.com')->send(new TicketPurchase($purchase));
+    });
 });
 
 

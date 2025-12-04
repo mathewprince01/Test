@@ -10,7 +10,14 @@ class TicketPurchase extends Model
     public function attendee(){
         return $this->belongsTo(Attendee::class);
     }
-    public function event(){
-        return $this->belongsTo(Event::class);
+    public function events(){
+        return $this->belongsTo(Event::class,'event_id');
     }
+      protected $fillable = [
+        'attendee_id',
+        'event_id',
+        'ticket_type',
+        'quantity',
+        'total_price',
+    ];
 }

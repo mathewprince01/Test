@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use App\Models\Country;
 use App\Models\Event;
+use App\Models\Organizer;
 use App\Models\TicketInventory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 use function Pest\Laravel\options;
 
@@ -73,6 +77,8 @@ class EventController extends Controller
             'event_date'    => $validData['event_date'],
             'event_time'    => $validData['event_time'],
             'venue'         => $validData['venue'],
+            'city'          => $validData['city'],
+            'country'       =>$validData['country'],
             'country_id'    => $validData['country'],
             'city_id'       => $validData['city'],
             'event_type'    => $validData['event_type'],
@@ -147,6 +153,8 @@ class EventController extends Controller
             'event_date'    => $validData['event_date'],
             'event_time'    => $validData['event_time'],
             'venue'         => $validData['venue'],
+            'city'          => $validData['city'],
+            'country'       =>$validData['country'],
             'country_id'    => $validData['country'],
             'city_id'       => $validData['city'],
             'event_type'    => $validData['event_type'],
@@ -187,7 +195,7 @@ class EventController extends Controller
             $options .= "<option value='{$city->id}' {$selected}>{$city->name}</option>";
         }
         return $options;
-    }   
+    }
 
 
      public function filterData(Request $request){

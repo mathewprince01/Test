@@ -22,7 +22,7 @@
                         @csrf
                         <div class="col-4 mb-3">
                             <label for="email" class="form-label">Email :</label>
-                            <input type="text" name="email" id="email" class="form-control">
+                            <input type="email" name="email" id="email" class="form-control">
                         </div>
                         <div class="col-4 mb-3">
                             <label for="password" class="form-label">Password :</label>

@@ -15,6 +15,12 @@ class AuthController extends Controller
             'email' => 'required|email',
             'password' => 'required'
         ]);
+
+    //         dd([
+    //     'email' => $validData['email'],
+    //     'password' => $validData['password'],
+    //     'user_in_db' => \App\Models\User::where('email', $validData['email'])->first(),
+    // ]);
         $email = $validData['email'];
         $password = $validData['password'];
         if(Auth::attempt(['email'=>$email, 'password'=>$password])){

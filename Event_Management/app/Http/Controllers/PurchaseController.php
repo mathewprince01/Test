@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\TicketPurchaseEvent;
+use App\Http\Controllers\Controller;
 use App\Models\Attendee;
 use App\Models\Event;
 use App\Models\TicketInventory;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Auth;
 
 class PurchaseController extends Controller
 {
+
+
     public function index(){
         $purchases = TicketPurchase::with(['events', 'attendee'])->get();
         return view('purchase.list', compact('purchases'));
@@ -21,10 +24,15 @@ class PurchaseController extends Controller
         return view('purchase.create',compact('events'));
     }
     public function store(Request $request){
+       //  dd("STORE HIT", Auth::user()->role);
         $user = Auth::user();
+        $attendee = null;
         if($user->role == 'Attendee'){
             $attendee = Attendee::where('user_id',$user->id)->first();
         }
+        if(!$attendee){
+    return back()->with('error', 'Attendee not found or you are not an attendee.');
+}
         $validData = $request->validate([
             'event_id' => 'required',
             'ticket_type' => 'required',
@@ -32,8 +40,16 @@ class PurchaseController extends Controller
         ]);
         $inventory = TicketInventory::find($validData['ticket_type']);
         $ticket_type = $inventory->ticket_type_name;
-        // $available_quantity = $inventory->available_quantity - $validData['quantity'];
+
         $total_price = $validData['quantity'] * $inventory->price;
+        // dd([
+        //     'attendee_id' => $attendee->id,
+        //     'event_id' => $validData['event_id'],
+        //     'ticket_type' => $ticket_type,
+        //     'quantity' => $validData['quantity'],
+        //     'total_price' => $total_price
+        // ]);
+
 
         $purchase = TicketPurchase::create([
             'attendee_id' => $attendee->id,
@@ -41,12 +57,15 @@ class PurchaseController extends Controller
             'ticket_type' => $ticket_type,
             'quantity' => $validData['quantity'],
             'total_price' => $total_price
+
         ]);
+
         $inventory->available_quantity -= $validData['quantity'];
         $inventory->save();
         event(new TicketPurchaseEvent($purchase));
         return redirect()->route('purchaseIndex')->with('success', 'Ticket Purchased Successfully!');
     }
+
 
     public function getTicketType(Request $request, TicketInventory $inventory){
         $inventories = TicketInventory::where('event_id', $request->event_id)->get();
